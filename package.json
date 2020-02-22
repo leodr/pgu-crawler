@@ -1,8 +1,8 @@
 {
     "name": "pgu-crawler",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "version": "0.0.1",
+    "description": "This Node.js program crawls the news, calendar and canteen pages from http://www.pgu.de/ and stores them in Cloud Firestore collections.",
+    "main": "index.ts",
     "scripts": {
         "start": "nodemon",
         "build": "tsc",
@@ -11,8 +11,21 @@
     "engines": {
         "node": ">=12.14.0"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "Leo Driesch",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/leodr/pgu-crawler.git"
+    },
+    "bugs": {
+        "email": "dev@leodriesch.com",
+        "url": "https://github.com/leodr/pgu-crawler/issues"
+    },
+    "homepage": "https://github.com/leodr/pgu-crawler",
+    "keywords": [
+        "nodejs",
+        "typescript"
+    ],
     "devDependencies": {
         "@types/cheerio": "^0.22.16",
         "@types/moment": "^2.13.0",
