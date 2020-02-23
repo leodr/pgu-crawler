@@ -22,7 +22,7 @@
 
 ## Prerequisites
 
-- node >=12.14.0
+-   node >=12.14.0
 
 ## Install
 
@@ -40,12 +40,12 @@ npm run start
 
 👤 **Leo Driesch**
 
-* Twitter: [@leodriesch](https://twitter.com/leodriesch)
-* Github: [@leodr](https://github.com/leodr)
+-   Twitter: [@leodriesch](https://twitter.com/leodriesch)
+-   Github: [@leodr](https://github.com/leodr)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/leodr/pgu-crawler/issues). 
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/leodr/pgu-crawler/issues).
 
 ## Show your support
 
@@ -55,6 +55,3 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2020 [Leo Driesch](https://github.com/leodr).<br />
 This project is [MIT](https://github.com/leodr/pgu-crawler/blob/master/LICENSE) licensed.
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
