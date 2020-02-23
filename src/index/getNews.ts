@@ -55,12 +55,9 @@ const getNews = async (): Promise<NewsArticle[]> => {
 
         const [dateString, timeString] = releaseDate.split(' ');
 
-        const releaseMoment = moment(
-            `${dateString} ${timeString}`,
-            'DD-MM-YY HH:mm',
-        ).utcOffset(60);
-
-        const date = releaseMoment.toDate();
+        const date = moment(`${dateString} ${timeString}`, 'DD-MM-YY HH:mm')
+            .utcOffset(60)
+            .toDate();
 
         const contentMatches = html?.match(matchContentRegex);
 
@@ -89,24 +86,20 @@ const getNews = async (): Promise<NewsArticle[]> => {
         const imageElements = $('.news-single-img a');
 
         const imageUrls = imageElements
-            .map((_, e) => {
-                const imageUrl = e.attribs.href;
-                const absoluteImageUrl = relativeToAbsoluteUrl(imageUrl);
-
-                return absoluteImageUrl;
-            })
+            .map((_, e) => relativeToAbsoluteUrl(e.attribs.href))
             .get();
 
         const images = await Promise.all(
             imageUrls.map(
                 async (imageUrl): Promise<NewsImage> => {
-                    const image = await (await fetch(imageUrl)).buffer();
+                    const response = await fetch(imageUrl);
+                    const imageBuffer = await response.buffer();
 
-                    let width = 1,
-                        height = 1;
+                    let width = 1;
+                    let height = 1;
 
                     try {
-                        const metadata = await sharp(image).metadata();
+                        const metadata = await sharp(imageBuffer).metadata();
                         width = metadata.width ?? 1;
                         height = metadata.height ?? 1;
                     } catch (e) {
@@ -124,7 +117,7 @@ const getNews = async (): Promise<NewsArticle[]> => {
                     const componentY = totalComponents - componentX;
 
                     const blurHash = blurhash.encode(
-                        new Uint8ClampedArray(image),
+                        new Uint8ClampedArray(imageBuffer),
                         width,
                         height,
                         componentX,
