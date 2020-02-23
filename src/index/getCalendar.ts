@@ -11,6 +11,11 @@ const duplicateWhiteSpaceRegex = /[\s]{2,}/g;
 const removeDuplicateWhiteSpace = (str: string): string =>
     str.replace(duplicateWhiteSpaceRegex, ' ');
 
+const parseStringDate = (stringDate: string): Date =>
+    moment(stringDate, 'DD.MM.YYYY')
+        .utc()
+        .toDate();
+
 interface CalendarEntry {
     startDate: Date;
     endDate: Date | null;
@@ -43,17 +48,13 @@ const getCalendar = async (): Promise<CalendarEntry[]> => {
         let endDate: Date | null;
 
         if (startDateString) {
-            startDate = moment(startDateString, 'DD.MM.YYYY')
-                .utc()
-                .toDate();
+            startDate = parseStringDate(startDateString);
         } else {
             startDate = calendarEntries[calendarEntries.length - 1].startDate;
         }
 
         if (endDateString) {
-            endDate = moment(endDateString, 'DD.MM.YYYY')
-                .utc()
-                .toDate();
+            endDate = parseStringDate(endDateString);
         } else {
             endDate = null;
         }
