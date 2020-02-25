@@ -261,7 +261,7 @@
   dependencies:
     moment "*"
 
-"@types/node-fetch@^2.5.4":
+"@types/node-fetch@^2.5.5":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.5.5.tgz#cd264e20a81f4600a6c52864d38e7fef72485e92"
   integrity sha512-IWwjsyYjGw+em3xTvWVQi5MgYKbRs0du57klfTaZkv/B24AEQ/p/IopNeqIYNy3EsfHOpg8ieQSDomPcsYMHpA==
@@ -301,7 +301,7 @@
   dependencies:
     "@types/node" "*"
 
-"@typescript-eslint/eslint-plugin@^2.20.0":
+"@typescript-eslint/eslint-plugin@^2.21.0":
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.21.0.tgz#a34de84a0791cae0357c4dda805c5b4e8203b6c6"
   integrity sha512-b5jjjDMxzcjh/Sbjuo7WyhrQmVJg0WipTHQgXh5Xwx10uYm6nPWqN1WGOsaNq4HR3Zh4wUx4IRQdDkCHwyewyw==
@@ -321,7 +321,7 @@
     "@typescript-eslint/typescript-estree" "2.21.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@^2.20.0":
+"@typescript-eslint/parser@^2.21.0":
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.21.0.tgz#4f200995517c3d5fc5ef51b17527bc948992e438"
   integrity sha512-VrmbdrrrvvI6cPPOG7uOgGUFXNYTiSbnRq8ZMyuGa4+qmXJXVLEEz78hKuqupvkpwJQNk1Ucz1TenrRP90gmBg==
@@ -927,10 +927,10 @@ delegates@^1.0.0:
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
 
-destiny@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/destiny/-/destiny-0.2.1.tgz#cdc32eccd78c50957ed7711b233965053f67f2a2"
-  integrity sha512-7xW3ElxUNmLMNKYujFOm0k9YgtQWY60O0FtIzJzyViLh0M3MCL6TbQpfUcmiaZq/CevykyAYZ4OXActtnX1PxQ==
+destiny@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/destiny/-/destiny-0.3.0.tgz#f70aca20f0fd02778613225ac719931dbd170324"
+  integrity sha512-l7n4jxkZ91W3doSBmxZncXX+q/+RJOyJqF90bs6vGwAFkuF1JJF8IeV9MCE7FzUwZyMU+na6X4X47kKzhsVY0w==
   dependencies:
     "@babel/runtime" "^7.8.4"
     chalk "^3.0.0"
