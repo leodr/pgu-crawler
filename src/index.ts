@@ -1,44 +1,45 @@
-import cheerio from 'cheerio';
-import fetch from 'node-fetch';
+import * as admin from 'firebase-admin';
+import hash from 'object-hash';
+import deleteFirebaseCollection from './index/deleteFirebaseCollection';
+import credential, { databaseUrl } from './index/firebaseCredentials';
+import getCalendar from './index/getCalendar';
+import getCanteen from './index/getCanteen';
+import getNews from './index/getNews';
 
-const NEWS_URL = 'http://www.pgu.de/fileadmin/Vertretungsplan/Neu/Forum_4.php';
-
-const fetchHTML = async (url: string): Promise<string> => {
-    const response = await fetch(url);
-    const html = await response.text();
-    return html;
-};
-
-const getArticleUrls = async (): Promise<string[]> => {
-    const html = await fetchHTML(NEWS_URL);
-    const $ = cheerio.load(html);
-    const newsElements = $('.news-list-item > a');
-
-    return newsElements
-        .map((i, el) => {
-            return el.attribs.href;
-        })
-        .get();
-};
-
-const main = async () => {
-    const articleUrls = await getArticleUrls();
-
-    const articleObjects = articleUrls.map(async url => {
-        const html = await fetchHTML(url);
-        const $ = cheerio.load(html);
-        const newsItem = $('.news-single-item');
-        const heading = newsItem.find('h1').text();
-        const date = newsItem
-            .find('.news-single-rightbox')
-            .text()
-            .trim();
-        const children = $('.news-single-item > hr').first.nextUntil('hr');
-
-        return { heading, date };
+const main = async (): Promise<void> => {
+    admin.initializeApp({
+        credential: credential,
+        databaseURL: databaseUrl,
     });
 
-    console.log(await Promise.all(articleObjects));
+    const news = await getNews();
+    const calendarEntries = await getCalendar();
+    const canteenUrl = await getCanteen();
+
+    const db = admin.firestore();
+    const batch = db.batch();
+
+    for (const newsArticle of news) {
+        const docRef = db.collection('news').doc(newsArticle.slug);
+
+        batch.set(docRef, newsArticle);
+    }
+
+    await deleteFirebaseCollection(batch, 'calendar');
+
+    for (const calendarEntry of calendarEntries) {
+        const key = hash(calendarEntry, { algorithm: 'md5' });
+
+        const calendarRef = db.collection('calendar').doc(key);
+
+        batch.set(calendarRef, calendarEntry);
+    }
+
+    const canteenUrlRef = db.collection('canteen').doc('canteenUrl');
+
+    batch.set(canteenUrlRef, { canteenUrl });
+
+    batch.commit();
 };
 
 main();
