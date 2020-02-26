@@ -1,8 +1,6 @@
-import * as blurhash from 'blurhash';
 import cheerio from 'cheerio';
 import moment from 'moment';
-import fetch from 'node-fetch';
-import sharp from 'sharp';
+import encodeImageToBlurhash from './getNews/encodeImageToBlurhash';
 import fetchHtml from './shared/fetchHtml';
 import { NEWS_URL, relativeToAbsoluteUrl } from './shared/urls';
 
@@ -92,37 +90,18 @@ const getNews = async (): Promise<NewsArticle[]> => {
         const images = await Promise.all(
             imageUrls.map(
                 async (imageUrl): Promise<NewsImage> => {
-                    const response = await fetch(imageUrl);
-                    const imageBuffer = await response.buffer();
+                    const html = await fetchHtml(imageUrl);
+                    const $ = cheerio.load(html);
 
-                    let width = 1;
-                    let height = 1;
-
-                    try {
-                        const metadata = await sharp(imageBuffer).metadata();
-                        width = metadata.width ?? 1;
-                        height = metadata.height ?? 1;
-                    } catch (e) {
-                        console.error(imageUrl);
-                    }
-
-                    const aspectRatio = width / height;
-
-                    const totalComponents = 10;
-
-                    const componentX = Math.round(
-                        (aspectRatio * totalComponents) / (1 + aspectRatio),
+                    const cmsImageUrl = relativeToAbsoluteUrl(
+                        $('img').attr('src') ?? '',
                     );
 
-                    const componentY = totalComponents - componentX;
-
-                    const blurHash = blurhash.encode(
-                        new Uint8ClampedArray(imageBuffer),
+                    const {
                         width,
                         height,
-                        componentX,
-                        componentY,
-                    );
+                        blurHash,
+                    } = await encodeImageToBlurhash(cmsImageUrl);
 
                     return {
                         url: imageUrl,
