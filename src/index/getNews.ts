@@ -38,7 +38,7 @@ interface NewsImage {
 const getNews = async (): Promise<NewsArticle[]> => {
     const articleUrls = await getArticleUrls();
 
-    const articleObjects = articleUrls.map(async url => {
+    const articleObjects = articleUrls.map(async (url) => {
         const afterSlashUrl = url?.match(afterSlashUrlRegex)?.[1] ?? '';
         const slug = afterSlashUrl.replace('.html', '');
 
@@ -94,7 +94,7 @@ const getNews = async (): Promise<NewsArticle[]> => {
                     const $ = cheerio.load(html);
 
                     const cmsImageUrl = relativeToAbsoluteUrl(
-                        $('img').attr('src') ?? '',
+                        $('img').attr('src') ?? ''
                     );
 
                     const {
@@ -109,8 +109,8 @@ const getNews = async (): Promise<NewsArticle[]> => {
                         width,
                         height,
                     };
-                },
-            ),
+                }
+            )
         );
 
         return {

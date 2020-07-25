@@ -2,14 +2,11 @@ import * as admin from 'firebase-admin';
 
 const deleteFirebaseCollection = async (
     batch: FirebaseFirestore.WriteBatch,
-    path: string,
+    path: string
 ): Promise<void> => {
-    const documents = await admin
-        .firestore()
-        .collection(path)
-        .listDocuments();
+    const documents = await admin.firestore().collection(path).listDocuments();
 
-    documents.map(val => {
+    documents.map((val) => {
         batch.delete(val);
     });
 };

@@ -23,7 +23,7 @@ interface EncodedImageData {
 }
 
 const encodeImageToBlurhash = async (
-    imageUrl: string,
+    imageUrl: string
 ): Promise<EncodedImageData> => {
     const image = await loadImage(imageUrl);
     const { data: imageData, width, height } = getImageData(image);
@@ -33,7 +33,7 @@ const encodeImageToBlurhash = async (
     const totalComponents = 10;
 
     const componentX = Math.round(
-        (aspectRatio * totalComponents) / (1 + aspectRatio),
+        (aspectRatio * totalComponents) / (1 + aspectRatio)
     );
 
     const componentY = totalComponents - componentX;
