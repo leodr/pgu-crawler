@@ -12,9 +12,7 @@ const removeDuplicateWhiteSpace = (str: string): string =>
     str.replace(duplicateWhiteSpaceRegex, ' ');
 
 const parseStringDate = (stringDate: string): Date =>
-    moment(stringDate, 'DD.MM.YYYY')
-        .utc()
-        .toDate();
+    moment(stringDate, 'DD.MM.YYYY').utc().toDate();
 
 interface CalendarEntry {
     startDate: Date;
@@ -73,7 +71,7 @@ const getCalendar = async (): Promise<CalendarEntry[]> => {
         }
 
         const textWithoutTimes = removeDuplicateWhiteSpace(
-            text.replace(timeRemovalRegex, '').replace(timeFilterRegex, ''),
+            text.replace(timeRemovalRegex, '').replace(timeFilterRegex, '')
         ).trim();
 
         if (startDate && textWithoutTimes) {
